@@ -1,0 +1,13 @@
+<div class="collection-collapse-block open">
+  <h3 class="collapse-block-title">{{title}}</h3>
+  <div class="collection-collapse-block-content">
+    <div class="collection-brand-filter">
+      <div class="custom-control custom-checkbox collection-filter-checkbox"
+        *ngFor="let option of options; let i = index">
+        <input type="checkbox" [value]="option" [checked]="false" [id]="option"
+          (change)="appliedFilter($event)" class="custom-control-input" />
+        <label class="custom-control-label" for="{{ option }}">{{ option }}</label>
+      </div>
+    </div>
+  </div>
+</div>

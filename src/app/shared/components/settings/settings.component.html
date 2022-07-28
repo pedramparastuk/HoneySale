@@ -1,0 +1,72 @@
+<div class="icon-nav">
+  <ul>
+    <li class="onhover-div mobile-cart">
+      <div>
+        <a [routerLink]="['/shop/cart']">
+          <img src="assets/images/icon/cart.png" class="img-fluid" alt="">
+          <i class="ti-shopping-cart"></i>
+        </a>
+      </div>
+      <span class="cart_qty_cls">{{ products.length }}</span>
+      <ul class="show-div shopping-cart" *ngIf='!products.length'>
+        <h5>Ihr Warenkorb ist derzeit leer.</h5>
+      </ul>
+      <ul class="show-div shopping-cart" *ngIf='products.length'>
+        <li *ngFor="let product of products">
+          <div class="media pb-2">
+            <a [routerLink]="['']">
+              <img class="mr-3" [src]="product?.images[0].src" [alt]="product?.images[0].alt">
+            </a>
+            <div class="media-body">
+              <a [routerLink]="['']">
+                <h4>{{ product?.title }}</h4>
+              </a>
+              <h4>
+                <span>
+                  {{ product?.quantity }} x
+                  {{ product?.price * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                </span>
+              </h4>
+            </div>
+          </div>
+          <div class="close-circle" (click)="removeItem(product)">
+            <a href="javascript:void(0)"><i class="fa fa-times" aria-hidden="true"></i></a>
+          </div>
+        </li>
+        <li class="border-top-grey" *ngIf="varieties.length || shippingMethods.length || consistencies.length">
+          <div class="pb-1" *ngIf="varieties.length">
+            <h5>Sorte :</h5>
+            <div *ngFor="let item of varieties" class="text-right">
+              {{ item }}
+            </div>
+          </div>
+          <div class="pb-1" *ngIf="shippingMethods.length">
+            <h5>Versandart :</h5>
+            <div *ngFor="let item of shippingMethods" class="text-right">
+              {{ item }}
+            </div>
+          </div>
+          <div *ngIf="consistencies.length">
+            <h5>Konsistenz :</h5>
+            <div *ngFor="let item of consistencies" class="text-right">
+              {{ item }}
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="total">
+            <h5>Zwischensumme : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol'
+                }}</span>
+            </h5>
+          </div>
+        </li>
+        <li>
+          <div class="buttons">
+            <a [routerLink]="['/shop/cart']" class="view-cart">Warenkorb ansehen</a>
+            <a [routerLink]="['']" class="checkout">Kasse</a>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
